@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const sequelize = require("./config/db");
+const Cliente = require("./models/Cliente");
 
 app.use(express.json());
 
@@ -24,3 +25,10 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+sequelize
+  .sync({ alter: true }) // o { force: true } para forzar recreación
+  .then(() => console.log("Modelo Cliente sincronizado con la base de datos"))
+  .catch((error) =>
+    console.error("Error al sincronizar el modelo Cliente", error)
+  );

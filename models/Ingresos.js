@@ -1,31 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
-  const Service = sequelize.define(
-    "service",
+  const Ingresos = sequelize.define(
+    "ingresos",
     {
-      idservice: {
+      idIngresos: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      fecha: {
-        type: DataTypes.DATE,
+      concepto: {
+        type: DataTypes.STRING(45),
         allowNull: false,
       },
-      service: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-      },
-      precio: {
+      monto: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
       },
-      Clientes_idClientes: {
-        type: DataTypes.INTEGER,
+      fecha: {
+        type: DataTypes.DATE,
         allowNull: false,
-        references: {
-          model: "clientes",
-          key: "idClientes",
-        },
       },
       User_idUser: {
         type: DataTypes.INTEGER,
@@ -35,12 +27,20 @@ module.exports = (sequelize, DataTypes) => {
           key: "idUser",
         },
       },
+      idservice: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: "service",
+          key: "idservice",
+        },
+      },
     },
     {
-      tableName: "service",
+      tableName: "ingresos",
       timestamps: false,
     }
   );
-
-  return Service;
+  return Ingresos;
 };
