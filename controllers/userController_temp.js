@@ -1,6 +1,6 @@
 const { User } = require("../models");
 
-const UserController = {
+const userController = {
   // Crear un nuevo usuario
   async createUser(req, res) {
     try {
@@ -93,4 +93,4 @@ const UserController = {
   },
 };
 
-module.exports = UserController;
+module.exports = userController;

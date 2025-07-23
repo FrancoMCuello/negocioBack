@@ -1,6 +1,6 @@
 const { Egreso } = require("../models");
 
-const EgresoController = {
+const egresoController = {
   // Crear un nuevo egreso
   async createEgreso(req, res) {
     try {
@@ -95,4 +95,4 @@ const EgresoController = {
   },
 };
 
-module.exports = EgresoController;
+module.exports = egresoController;

@@ -1,6 +1,6 @@
 const { Cliente } = require("../models");
 
-const ClientesController = {
+const clientesController = {
   //crear cliente
   async createClientes(req, res) {
     try {
@@ -100,4 +100,4 @@ const ClientesController = {
   },
 };
 
-module.exports = ClientesController;
+module.exports = clientesController;

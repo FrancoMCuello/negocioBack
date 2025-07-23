@@ -1,6 +1,6 @@
 const { Service } = require("../models");
 
-const ServiceController = {
+const serviceController = {
   // Crear un nuevo servicio
   async createService(req, res) {
     try {
@@ -99,4 +99,4 @@ const ServiceController = {
   },
 };
 
-module.exports = ServiceController;
+module.exports = serviceController;

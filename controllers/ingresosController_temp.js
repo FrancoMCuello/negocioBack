@@ -1,6 +1,6 @@
 const { Ingreso } = require("../models");
 
-const IngresoController = {
+const ingresoController = {
   // Crear un nuevo ingreso
   async createIngreso(req, res) {
     try {
@@ -97,4 +97,4 @@ const IngresoController = {
   },
 };
 
-module.exports = IngresoController;
+module.exports = ingresoController;
