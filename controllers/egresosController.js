@@ -1,4 +1,4 @@
-const { Egreso } = require("../models");
+const { Egresos } = require("../models");
 
 const egresoController = {
   // Crear un nuevo egreso
@@ -6,7 +6,7 @@ const egresoController = {
     try {
       const { concepto, monto, fecha, user_idUser } = req.body;
 
-      const nuevoEgreso = await Egreso.create({
+      const nuevoEgreso = await Egresos.create({
         concepto,
         monto,
         fecha,
@@ -23,9 +23,9 @@ const egresoController = {
     }
   },
   //Obetener todos los egresos
-  async getAllEgreso(req, res) {
+  async getAllEgresos(req, res) {
     try {
-      const egresos = await Egreso.findAll();
+      const egresos = await Egresos.findAll();
       res.status(200).json({
         message: "Egresos encontrados",
         data: egresos,
@@ -39,7 +39,7 @@ const egresoController = {
   async getEgresoById(req, res) {
     try {
       const { id } = req.params;
-      const egreso = await Egreso.findByPk(id);
+      const egreso = await Egresos.findByPk(id);
 
       if (!egreso) {
         return res.status(400).json({ error: "Egreso no encontrado" });
@@ -60,7 +60,7 @@ const egresoController = {
       const { id } = req.params;
       const { concepto, monto, fecha, user_idUser } = req.body;
 
-      const egreso = await Egreso.findByPk(id);
+      const egreso = await Egresos.findByPk(id);
       if (!egreso) {
         return res.status(400).json({ error: "Egreso no encontrado" });
       }
@@ -81,7 +81,7 @@ const egresoController = {
   async deleteEgreso(req, res) {
     try {
       const { id } = req.params;
-      const egreso = await Egreso.findByPk(id);
+      const egreso = await Egresos.findByPk(id);
 
       if (!egreso) {
         return res.status(400).json({ error: "Egreso no encontrado" });

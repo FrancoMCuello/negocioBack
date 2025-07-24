@@ -1,4 +1,4 @@
-const { Cliente } = require("../models");
+const { Clientes } = require("../models");
 
 const clientesController = {
   //crear cliente
@@ -6,7 +6,7 @@ const clientesController = {
     try {
       const { nombre, apellido, user, phone, email, User_idUser } = req.body;
 
-      const nuevoCliente = await Cliente.create({
+      const nuevoCliente = await Clientes.create({
         nombre,
         apellido,
         user,
@@ -26,7 +26,7 @@ const clientesController = {
   //Obtener todos los clientes
   async getAllClientes(req, res) {
     try {
-      const clientes = await Cliente.findAll();
+      const clientes = await Clientes.findAll();
       res.status(200).json({
         message: "Clientes encontrados",
         data: clientes,
@@ -40,7 +40,7 @@ const clientesController = {
   async getClienteById(req, res) {
     try {
       const { id } = req.params;
-      const cliente = await Cliente.findByPk(id);
+      const cliente = await Clientes.findByPk(id);
 
       if (!cliente) {
         return res.status(400).json({ error: "Cliente no encontrado" });
@@ -62,7 +62,7 @@ const clientesController = {
       const { id } = req.params;
       const { nombre, apellido, user, phone, email, User_idUser } = req.body;
 
-      const cliente = await Cliente.findByPk(id);
+      const cliente = await Clientes.findByPk(id);
       if (!cliente) {
         return res.status(400).json({ error: "Cliente no encontrado" });
       }
@@ -86,7 +86,7 @@ const clientesController = {
   async deleteCliente(req, res) {
     try {
       const { id } = req.params;
-      const cliente = await Cliente.findByPk(id);
+      const cliente = await Clientes.findByPk(id);
 
       if (!cliente) {
         return res.status(400).json({ error: "Cliente no encontrado" });

@@ -1,4 +1,4 @@
-const { Ingreso } = require("../models");
+const { Ingresos } = require("../models");
 
 const ingresoController = {
   // Crear un nuevo ingreso
@@ -6,7 +6,7 @@ const ingresoController = {
     try {
       const { concepto, monto, fecha, User_idUser, idservice } = req.body;
 
-      const nuevoIngreso = await Ingreso.create({
+      const nuevoIngreso = await Ingresos.create({
         concepto,
         monto,
         fecha,
@@ -24,9 +24,9 @@ const ingresoController = {
     }
   },
   //Obetener todos los ingresos
-  async getAllIngreso(req, res) {
+  async getAllIngresos(req, res) {
     try {
-      const ingresos = await Ingreso.findAll();
+      const ingresos = await Ingresos.findAll();
       res.status(200).json({
         message: "Ingresos encontrados",
         data: ingresos,
@@ -40,7 +40,7 @@ const ingresoController = {
   async getIngresoById(req, res) {
     try {
       const { id } = req.params;
-      const ingreso = await Ingreso.findByPk(id);
+      const ingreso = await Ingresos.findByPk(id);
 
       if (!ingreso) {
         return res.status(400).json({ error: "Ingreso no encontrado" });
@@ -61,7 +61,7 @@ const ingresoController = {
       const { id } = req.params;
       const { concepto, monto, fecha, User_idUser, idservice } = req.body;
 
-      const ingreso = await Ingreso.findByPk(id);
+      const ingreso = await Ingresos.findByPk(id);
       if (!ingreso) {
         return res.status(400).json({ error: "Ingreso no encontrado" });
       }
@@ -83,7 +83,7 @@ const ingresoController = {
   async deleteIngreso(req, res) {
     try {
       const { id } = req.params;
-      const ingreso = await Ingreso.findByPk(id);
+      const ingreso = await Ingresos.findByPk(id);
 
       if (!ingreso) {
         return res.status(400).json({ error: "Ingreso no encontrado" });

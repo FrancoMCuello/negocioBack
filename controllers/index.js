@@ -1,8 +1,8 @@
-const clientesController = require("./ClientesController");
-const ingresosController = require("./IngresosController");
-const egresosController = require("./EgresosController");
-const serviceController = require("./ServiceController");
-const userController = require("./UserController");
+const clientesController = require("./clientesController");
+const ingresosController = require("./ingresosController");
+const egresosController = require("./egresosController");
+const serviceController = require("./serviceController");
+const userController = require("./userController");
 
 module.exports = {
   clientesController,

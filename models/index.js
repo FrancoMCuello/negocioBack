@@ -44,23 +44,23 @@ Service.hasOne(Ingresos, {
 });
 
 Service.belongsTo(Clientes, {
-  foreignKey: "idclientes",
-  targetKey: "idclientes",
+  foreignKey: "Clientes_idClientes",
+  targetKey: "idClientes",
 });
 
 Clientes.hasMany(Service, {
-  foreignKey: "idclientes",
-  sourceKey: "idclientes",
+  foreignKey: "Clientes_idClientes",
+  sourceKey: "idClientes",
 });
 
 // Relación con User
 Service.belongsTo(User, {
-  foreignKey: "user_idUser",
+  foreignKey: "User_idUser",
   targetKey: "idUser",
 });
 
 User.hasMany(Service, {
-  foreignKey: "user_idUser",
+  foreignKey: "User_idUser",
   sourceKey: "idUser",
 });
 

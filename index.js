@@ -2,8 +2,12 @@ const express = require("express");
 const app = express();
 const sequelize = require("./config/db");
 const Cliente = require("./models/Cliente");
+const routes = require("./routes");
 
 app.use(express.json());
+
+// Todas las rutas agrupadas
+app.use("/api", routes);
 
 //test DB Connection
 

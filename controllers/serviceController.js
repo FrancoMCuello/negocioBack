@@ -1,4 +1,4 @@
-const { Service } = require("../models");
+const { Service, Clientes, User } = require("../models");
 
 const serviceController = {
   // Crear un nuevo servicio
@@ -15,6 +15,16 @@ const serviceController = {
         User_idUser,
       });
 
+      if (precio === undefined || isNaN(precio)) {
+        return res.status(400).json({ error: "El precio debe ser un número" });
+      }
+
+      if (precio < 0) {
+        return res
+          .status(400)
+          .json({ error: "El precio no puede ser negativo" });
+      }
+
       res.status(201).json({
         message: "Servicio creado correctamente",
         data: nuevoService,
@@ -25,9 +35,20 @@ const serviceController = {
     }
   },
   //Obetener todos los servicios
-  async getAllService(req, res) {
+  async getAllServices(req, res) {
     try {
-      const servicios = await Service.findAll();
+      const servicios = await Service.findAll({
+        include: [
+          {
+            model: Clientes,
+            attributes: ["nombre", "apellido", "email"],
+          },
+          {
+            model: User,
+            attributes: ["user"],
+          },
+        ],
+      });
       res.status(200).json({
         message: "Servicios encontrados",
         data: servicios,
