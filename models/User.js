@@ -11,7 +11,6 @@ module.exports = (sequelize) => {
       },
       user: {
         type: DataTypes.STRING(45),
-        allowNull: false,
         unique: true,
       },
       email: {
@@ -23,7 +22,7 @@ module.exports = (sequelize) => {
         },
       },
       password: {
-        type: DataTypes.STRING(45),
+        type: DataTypes.STRING(100),
         allowNull: false,
       },
     },

@@ -6,11 +6,14 @@ const ingresosRoutes = require("./ingresosRoutes");
 const egresosRoutes = require("./egresosRoutes");
 const serviceRoutes = require("./serviceRoutes");
 const userRoutes = require("./userRoutes");
+const authRoutes = require("./authRoutes");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-router.use("/clientes", clientesRoutes);
-router.use("/ingresos", ingresosRoutes);
-router.use("/egresos", egresosRoutes);
-router.use("/service", serviceRoutes);
+router.use("/clientes", authMiddleware, clientesRoutes);
+router.use("/ingresos", authMiddleware, ingresosRoutes);
+router.use("/egresos", authMiddleware, egresosRoutes);
+router.use("/service", authMiddleware, serviceRoutes);
 router.use("/user", userRoutes);
+router.use("/auth", authRoutes);
 
 module.exports = router;
