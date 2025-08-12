@@ -1,4 +1,4 @@
-const { Egresos } = require("../models");
+const { Egresos, User } = require("../models");
 
 const egresoController = {
   // Crear un nuevo egreso
@@ -25,7 +25,14 @@ const egresoController = {
   //Obetener todos los egresos
   async getAllEgresos(req, res) {
     try {
-      const egresos = await Egresos.findAll();
+      const egresos = await Egresos.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ["user"],
+          },
+        ],
+      });
       res.status(200).json({
         message: "Egresos encontrados",
         data: egresos,

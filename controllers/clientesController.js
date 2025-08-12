@@ -1,4 +1,4 @@
-const { Clientes } = require("../models");
+const { Clientes, User } = require("../models");
 
 const clientesController = {
   //crear cliente
@@ -26,7 +26,14 @@ const clientesController = {
   //Obtener todos los clientes
   async getAllClientes(req, res) {
     try {
-      const clientes = await Clientes.findAll();
+      const clientes = await Clientes.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ["user"],
+          },
+        ],
+      });
       res.status(200).json({
         message: "Clientes encontrados",
         data: clientes,

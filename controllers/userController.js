@@ -4,10 +4,9 @@ const userController = {
   // Crear un nuevo usuario
   async createUser(req, res) {
     try {
-      const { user, email, password } = req.body;
+      const { email, password } = req.body;
 
       const nuevoUser = await User.create({
-        user,
         email,
         password,
       });
@@ -57,7 +56,7 @@ const userController = {
   async updateUser(req, res) {
     try {
       const { id } = req.params;
-      const { user, email, password } = req.body;
+      const { user, email, password, role } = req.body;
 
       const usuario = await User.findByPk(id);
       if (!usuario) {
@@ -67,6 +66,7 @@ const userController = {
         user,
         email,
         password,
+        role,
       });
 
       res.status(200).json(usuario);

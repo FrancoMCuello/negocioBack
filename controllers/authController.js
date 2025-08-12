@@ -13,15 +13,19 @@ const register = async (req, res) => {
       });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ email, password: hashedPassword });
+    const user = await User.create({ email, password: hashedPassword });
+
+    const token = jwt.sign({ userId: user.idUser }, process.env.JWT_SECRET, {
+      expiresIn: "3h",
+    });
 
     return res
       .status(201)
-      .json({ message: "Usuario creado con exito", user: newUser });
+      .json({ message: "Usuario creado con exito", user: user, token });
   } catch (err) {
     return res
       .status(500)
-      .json({ message: "Error al registrarusuario", error: err.message });
+      .json({ message: "Error al registrar usuario", error: err.message });
   }
 };
 
@@ -38,9 +42,13 @@ const login = async (req, res) => {
     if (!match)
       return res.status(401).json({ message: "Contraseña incorrecta" });
 
-    const token = jwt.sign({ userId: user.idUser }, process.env.JWT_SECRET, {
-      expiresIn: "3h",
-    });
+    const token = jwt.sign(
+      { userId: user.idUser, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "3h",
+      }
+    );
     return res.json({ message: "login exitoso", token });
   } catch (err) {
     return res

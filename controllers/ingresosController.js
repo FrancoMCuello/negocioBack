@@ -1,4 +1,4 @@
-const { Ingresos } = require("../models");
+const { Ingresos, User, Service } = require("../models");
 
 const ingresoController = {
   // Crear un nuevo ingreso
@@ -26,7 +26,18 @@ const ingresoController = {
   //Obetener todos los ingresos
   async getAllIngresos(req, res) {
     try {
-      const ingresos = await Ingresos.findAll();
+      const ingresos = await Ingresos.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ["user"],
+          },
+          {
+            model: Service,
+            attributes: ["service", "precio"],
+          },
+        ],
+      });
       res.status(200).json({
         message: "Ingresos encontrados",
         data: ingresos,

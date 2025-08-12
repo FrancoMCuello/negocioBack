@@ -1,4 +1,5 @@
 const { DataTypes } = require("sequelize");
+const { toDefaultValue } = require("sequelize/lib/utils");
 
 module.exports = (sequelize) => {
   const User = sequelize.define(
@@ -24,6 +25,10 @@ module.exports = (sequelize) => {
       password: {
         type: DataTypes.STRING(100),
         allowNull: false,
+      },
+      role: {
+        type: DataTypes.STRING,
+        toDefaultValue: "user",
       },
     },
     {
