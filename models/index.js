@@ -38,7 +38,7 @@ Ingresos.belongsTo(Service, {
   targetKey: "idservice",
 });
 
-Service.hasOne(Ingresos, {
+/* Service.hasOne(Ingresos, {
   foreignKey: "idservice",
   sourceKey: "idservice",
 });
@@ -46,22 +46,31 @@ Service.hasOne(Ingresos, {
 Service.belongsTo(Clientes, {
   foreignKey: "Clientes_idClientes",
   targetKey: "idClientes",
-});
+}); 
 
 Clientes.hasMany(Service, {
   foreignKey: "Clientes_idClientes",
   sourceKey: "idClientes",
 });
-
-// Relación con User
 Service.belongsTo(User, {
   foreignKey: "User_idUser",
   targetKey: "idUser",
 });
 
-User.hasMany(Service, {
+ User.hasMany(Service, {
   foreignKey: "User_idUser",
   sourceKey: "idUser",
+}); */
+
+// 🔹 Nueva relación: Ingresos <-> Clientes
+Ingresos.belongsTo(Clientes, {
+  foreignKey: "idClientes",
+  targetKey: "idClientes",
+});
+
+Clientes.hasMany(Ingresos, {
+  foreignKey: "idClientes",
+  sourceKey: "idClientes",
 });
 
 module.exports = {

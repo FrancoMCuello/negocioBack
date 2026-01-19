@@ -35,6 +35,14 @@ module.exports = (sequelize, DataTypes) => {
           key: "idservice",
         },
       },
+      idClientes: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "clientes",
+          key: "idClientes",
+        },
+      },
     },
     {
       tableName: "ingresos",

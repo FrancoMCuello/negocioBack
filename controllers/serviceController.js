@@ -1,29 +1,15 @@
-const { Service, Clientes, User } = require("../models");
+const { Service } = require("../models");
 
 const serviceController = {
   // Crear un nuevo servicio
   async createService(req, res) {
     try {
-      const { fecha, service, precio, Clientes_idClientes, User_idUser } =
-        req.body;
+      const { service, description } = req.body;
 
       const nuevoService = await Service.create({
-        fecha,
         service,
-        precio,
-        Clientes_idClientes,
-        User_idUser,
+        description,
       });
-
-      if (precio === undefined || isNaN(precio)) {
-        return res.status(400).json({ error: "El precio debe ser un número" });
-      }
-
-      if (precio < 0) {
-        return res
-          .status(400)
-          .json({ error: "El precio no puede ser negativo" });
-      }
 
       res.status(201).json({
         message: "Servicio creado correctamente",
@@ -37,18 +23,7 @@ const serviceController = {
   //Obetener todos los servicios
   async getAllServices(req, res) {
     try {
-      const servicios = await Service.findAll({
-        include: [
-          {
-            model: Clientes,
-            attributes: ["nombre", "apellido", "email"],
-          },
-          {
-            model: User,
-            attributes: ["user"],
-          },
-        ],
-      });
+      const servicios = await Service.findAll();
       res.status(200).json({
         message: "Servicios encontrados",
         data: servicios,
@@ -81,19 +56,15 @@ const serviceController = {
   async updateService(req, res) {
     try {
       const { id } = req.params;
-      const { fecha, service, precio, Clientes_idClientes, User_idUser } =
-        req.body;
+      const { service, description } = req.body;
 
       const servicio = await Service.findByPk(id);
       if (!servicio) {
         return res.status(400).json({ error: "Servicio no encontrado" });
       }
       await servicio.update({
-        fecha,
         service,
-        precio,
-        Clientes_idClientes,
-        User_idUser,
+        description,
       });
 
       res.status(200).json(servicio);

@@ -35,8 +35,8 @@ app.listen(PORT, () => {
 });
 
 sequelize
-  .sync() // o { force: true } para forzar recreación
+  .sync() /* { force: true } para forzar recreación */
   .then(() => console.log("Modelo Cliente sincronizado con la base de datos"))
   .catch((error) =>
-    console.error("Error al sincronizar el modelo Cliente", error)
+    console.error("Error al sincronizar el modelo Cliente", error),
   );

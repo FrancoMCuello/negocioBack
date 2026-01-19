@@ -4,24 +4,29 @@ const { User } = require("../models");
 
 //REGISTER
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { user, email, password } = req.body;
   try {
-    const existingUser = await User.findOne({ where: { email } });
+    const existingUser = await User.findOne({ where: { user, email } });
     if (existingUser)
       return res.status(400).json({
         message: "El usuario ya existe",
       });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ email, password: hashedPassword });
+    const usuario = await User.create({
+      user,
+      email,
+      password: hashedPassword,
+      role: "user",
+    });
 
-    const token = jwt.sign({ userId: user.idUser }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: usuario.idUser }, process.env.JWT_SECRET, {
       expiresIn: "3h",
     });
 
     return res
       .status(201)
-      .json({ message: "Usuario creado con exito", user: user, token });
+      .json({ message: "Usuario creado con exito", usuario: usuario, token });
   } catch (err) {
     return res
       .status(500)

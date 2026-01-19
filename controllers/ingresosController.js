@@ -1,10 +1,11 @@
-const { Ingresos, User, Service } = require("../models");
+const { Ingresos, User, Service, Clientes } = require("../models");
 
 const ingresoController = {
   // Crear un nuevo ingreso
   async createIngreso(req, res) {
     try {
-      const { concepto, monto, fecha, User_idUser, idservice } = req.body;
+      const { concepto, monto, fecha, User_idUser, idservice, idClientes } =
+        req.body;
 
       const nuevoIngreso = await Ingresos.create({
         concepto,
@@ -12,6 +13,7 @@ const ingresoController = {
         fecha,
         User_idUser,
         idservice,
+        idClientes,
       });
 
       res.status(201).json({
@@ -34,7 +36,11 @@ const ingresoController = {
           },
           {
             model: Service,
-            attributes: ["service", "precio"],
+            attributes: ["idservice", "service"],
+          },
+          {
+            model: Clientes,
+            attributes: ["idClientes", "nombre", "apellido", "user"],
           },
         ],
       });
@@ -70,7 +76,8 @@ const ingresoController = {
   async updateIngreso(req, res) {
     try {
       const { id } = req.params;
-      const { concepto, monto, fecha, User_idUser, idservice } = req.body;
+      const { concepto, monto, fecha, User_idUser, idservice, idClientes } =
+        req.body;
 
       const ingreso = await Ingresos.findByPk(id);
       if (!ingreso) {
@@ -82,6 +89,7 @@ const ingresoController = {
         fecha,
         User_idUser,
         idservice,
+        idClientes,
       });
 
       res.status(200).json(ingreso);
